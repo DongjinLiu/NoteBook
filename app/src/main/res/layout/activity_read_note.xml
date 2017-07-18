@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input the name of note"
+        android:textSize="30dp"/>
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input the main body of note"
+        android:textSize="16dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:visibility="visible"/>
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/button_saveas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save as"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

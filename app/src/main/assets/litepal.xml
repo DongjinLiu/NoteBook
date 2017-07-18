@@ -1,0 +1,15 @@
+<!--
+借助Note类创建一个名为name的数据库
+版本号:1
+-->
+
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="NoteBook"></dbname>
+
+    <version value="1"></version>
+
+    <list>
+        <mapping class="com.example.jin.notebook.Note"></mapping>
+    </list>
+</litepal>
