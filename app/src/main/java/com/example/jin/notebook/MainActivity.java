@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
     Button mButtonCreate;
     EditText mEditTextKeyword;
     Button mButtonSearch;
+    Button mButtonCancle;
     ListView listView;
 
-    ArrayList<String> nameList=new ArrayList<String>();//所有笔记name组成的List
+    ArrayList<Note> displayList=new ArrayList<>();//在ListView中显示的List
     ArrayList<Note> noteList=new ArrayList<>();//所有笔记组成的List
     ArrayList<Note> searchList=new ArrayList<>();//符合搜索条件的笔记组成的List
     String TAG="MainActivity";
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonCreate=(Button)findViewById(R.id.button_create);
         mEditTextKeyword=(EditText)findViewById(R.id.textview_keyword);
         mButtonSearch=(Button)findViewById(R.id.button_search);
+        mButtonCancle=(Button)findViewById(R.id.button_cancel);
         listView=(ListView)findViewById(R.id.list_view);
 
         mEditTextKeyword.setText("");//清空搜索框
@@ -71,21 +73,39 @@ public class MainActivity extends AppCompatActivity {
                 String keyWord=mEditTextKeyword.getText().toString();//获取搜索关键字
 
                 //清空列表
-                nameList.clear();
+                displayList.clear();
                 searchList.clear();
+
+                mButtonCancle.setVisibility(View.VISIBLE);
 
                 //查数据库
                 readSql();
                 for(Note note:noteList){
                     if (note.getName().indexOf(keyWord)!=-1 ||note.getText().indexOf(keyWord)!=-1){
                         searchList.add(note);//存入搜索结果
-                        nameList.add(note.getName());//添加到显示列表
+                        displayList.add(note);//添加到显示列表
                         Log.d(TAG, "searchName: "+note.getName());
                     }
                 }
                 //将搜索结果显示到ListView
                 noteList.clear();
                 noteList=(ArrayList)searchList.clone();
+                refreshList();
+            }
+        });
+
+        mButtonCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //清空列表
+                displayList.clear();
+                searchList.clear();
+
+                mButtonCancle.setVisibility(View.GONE);
+
+                //查数据库
+                readSql();
+                mEditTextKeyword.setText("");
                 refreshList();
             }
         });
@@ -122,11 +142,18 @@ public class MainActivity extends AppCompatActivity {
      * 将nameList显示在ListView中
      */
     private void refreshList(){
-        nameList.clear();
-        for (Note note:noteList){
-            nameList.add(note.getName());
+        displayList.clear();
+        for (Note item:noteList){
+            Note note=new Note();
+            note.setName(item.getName());
+            if (item.getText().length()>41){
+                note.setText(item.getText().substring(0,41)+"...");
+            }else{
+                note.setText(item.getText());
+            }
+            displayList.add(note);
         }
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,nameList);
+        NoteAdapter adapter=new NoteAdapter(MainActivity.this,R.layout.note_item,displayList);
         listView.setAdapter(adapter);
     }
 
@@ -136,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Log.d(TAG, "onStart");
         mEditTextKeyword.setText("");
+        mButtonCancle.setVisibility(View.GONE);
         readSql();
         refreshList();
     }
@@ -169,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.d(TAG, "onRestart");
         mEditTextKeyword.setText("");
+        mButtonCancle.setVisibility(View.GONE);
         readSql();
         refreshList();
     }

@@ -1,8 +1,3 @@
-<!--
-借助Note类创建一个名为name的数据库
-版本号:1
--->
-
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="NoteBook"></dbname>
